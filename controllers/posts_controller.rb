@@ -1,19 +1,28 @@
 class PostsController < Sinatra::Base
 
-    $posts = [{
-        id: 0,
-        title: "post 1",
-        body: "This is the first post"
+    $users = [{
+        first_name: "Osama",
+        last_name: "Ahmed",
+        age: 24,
+        email: "osama@gmail.com"
     },
     {
-        id: 1,
-        title: "post 2",
-        body: "This is the second post"
+      first_name: "Jira",
+      last_name: "W",
+      age: 24,
+      email: "jira@gmail.com"
     },
     {
-        id: 2,
-        title: "post 3",
-        body: "This is the third post"
+      first_name: "Alex",
+      last_name: "Mentzgen",
+      age: 24,
+      email: "alex@gmail.com"
+    },
+    {
+      first_name: "Bikesh",
+      last_name: "Rana",
+      age: 24,
+      email: "bikesh@gmail.com"
     }]
 
     # sets root as the parent-directory of the current file
@@ -29,29 +38,35 @@ class PostsController < Sinatra::Base
     #index page
     get "/" do
         @title = "Blog Posts"
-        @posts = $posts
+        @users = $users
         erb :"posts/index"
     end
 
     #new page
     get "/new" do
-        "Show: New Form"
+        erb :"posts/new"
     end
 
     #show page
     get "/:id" do
         id = params[:id].to_i
-        @title = id
-        @header = $posts[id][:title]
-        @body = $posts[id][:body]
+        @title = $users[id][:first_name]
+        @name = $users[id][:first_name]
+        @email = $users[id][:email]
+        @age = $users[id][:age]
 
         erb :"posts/show"
     end
 
     #edit page
     get "/:id/edit" do
-        id = params[:id]
-        "Edit: #{id}"
+      id = params[:id].to_i
+      @title = $users[id][:first_name]
+      @name = $users[id][:first_name]
+      @email = $users[id][:email]
+      @age = $users[id][:age]
+
+      erb :"posts/edit"
     end
 
     #create page
