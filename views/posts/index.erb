@@ -1,0 +1,9 @@
+<h1>Welcome to the index page</h1>
+
+<% @posts.each do |post| %>
+  <div>
+    <h3><%= post[:title] %></h3>
+    <p><%= post[:body] %></p>
+    <a href="/0/edit"><button type="button"></button></a>
+  </div>
+<% end %>
