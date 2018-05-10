@@ -1,0 +1,20 @@
+<form class="" action="/<%= @post.id %>" method="post">
+  First Name:<br>
+  <input type="text" name="first_name" placeholder="First Name...." value="<%= @post.first_name %>">
+  <br><br>
+  Last Name:<br>
+  <input type="text" name="last_name" placeholder="Last Name...." value="<%= @post.last_name %>">
+  <br><br>
+  Email:<br>
+  <input type="text" name="email" placeholder="Email...." value="<%= @post.email %>">
+  <br><br>
+  Age:<br>
+  <input type="text" name="age" placeholder="Age...." value="<%= @post.age %>">
+  <br><br>
+  <input type="submit" name="" value="Submit">
+
+  <% if(@post.id) %>
+    <input type="hidden" name="_method" value="PUT">
+  <% end %>
+
+</form>

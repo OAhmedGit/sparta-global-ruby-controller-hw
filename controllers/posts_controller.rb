@@ -1,24 +1,28 @@
 class PostsController < Sinatra::Base
 
     $users = [{
+        id: 0,
         first_name: "Osama",
         last_name: "Ahmed",
         age: 24,
         email: "osama@gmail.com"
     },
     {
+      id: 1,
       first_name: "Jira",
       last_name: "W",
       age: 24,
       email: "jira@gmail.com"
     },
     {
+      id: 2,
       first_name: "Alex",
       last_name: "Mentzgen",
       age: 24,
       email: "alex@gmail.com"
     },
     {
+      id: 3,
       first_name: "Bikesh",
       last_name: "Rana",
       age: 24,
@@ -32,57 +36,75 @@ class PostsController < Sinatra::Base
     set :views, Proc.new { File.join(root, "views") }
 
     configure :development do
-        register Sinatra::Reloader
+      register Sinatra::Reloader
     end
 
     #index page
     get "/" do
-        @title = "Blog Posts"
-        @users = $users
-        erb :"posts/index"
+      @title = "Blog Posts"
+      @users = Post.all
+      erb :"posts/index"
     end
 
     #new page
     get "/new" do
-        erb :"posts/new"
+      @post = Post.new
+      erb :"posts/new"
     end
 
     #show page
     get "/:id" do
-        id = params[:id].to_i
-        @title = $users[id][:first_name]
-        @name = $users[id][:first_name]
-        @email = $users[id][:email]
-        @age = $users[id][:age]
+        id = params[:id]
+        @post = Post.find(id)
 
         erb :"posts/show"
     end
 
     #edit page
     get "/:id/edit" do
-      id = params[:id].to_i
-      @title = $users[id][:first_name]
-      @name = $users[id][:first_name]
-      @email = $users[id][:email]
-      @age = $users[id][:age]
+      id = params[:id]
+      @post = Post.find(id)
 
       erb :"posts/edit"
     end
 
     #create page
     post "/" do
-        "create Page"
+      post = Post.new
+
+      post.first_name = params[:first_name]
+      post.last_name = params[:last_name]
+      post.age = params[:age]
+      post.email = params[:email]
+
+      post.save
+
+      redirect "/"
+
     end
 
     #delete page
     delete "/:id" do
         id = params[:id]
-        "Delete: #{id}"
+
+        Post.destroy(id)
+
+        redirect "/"
     end
 
     #update page
-    patch "/:id" do
+    put "/:id" do
+
         id = params[:id]
-        "Update: #{id}"
+        post = Post.find(id)
+
+        post.first_name = params[:first_name]
+        post.last_name = params[:last_name]
+        post.email = params[:email]
+        post.age = params[:age]
+
+        post.save
+
+        redirect "/"
     end
 end

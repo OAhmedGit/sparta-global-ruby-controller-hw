@@ -1,3 +1,8 @@
-<h1>Name: <%=@name%></h1>
-<p>Email: <%=@email%></p>
-<p>Age: <%=@age%></p>
+<h1>Name: <%=@post.first_name%></h1>
+<p>Email: <%=@post.email%></p>
+<p>Age: <%=@post.age%></p>
+
+<form class="" action="/<%= @post.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="Delete">
+</form>
